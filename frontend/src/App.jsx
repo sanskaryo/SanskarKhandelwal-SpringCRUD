@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./App.css";
 
+// Created solely by Sanskar Khandelwal
 const API = "http://localhost:8080/students";
 
 export default function App() {
@@ -77,11 +79,12 @@ export default function App() {
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-      <h1>Student Management</h1>
+    <div className="app-root">
+      <div className="app-shell">
+        <h1>Student Management</h1>
 
-      <div style={{ marginBottom: "30px", padding: "20px", border: "1px solid #ccc" }}>
-        <h2>{editId ? "Edit Student" : "Add Student"}</h2>
+        <div className="form-section">
+          <h2>{editId ? "Edit Student" : "Add Student"}</h2>
 
         {error && (
           <div style={{ color: "red", marginBottom: "10px", padding: "10px", border: "1px solid red" }}>
@@ -104,7 +107,7 @@ export default function App() {
               onChange={e => setForm({ ...form, name: e.target.value })}
               required
               disabled={loading}
-              style={{ width: "100%", padding: "5px" }}
+              className="input-field"
             />
           </div>
 
@@ -116,7 +119,7 @@ export default function App() {
               onChange={e => setForm({ ...form, email: e.target.value })}
               required
               disabled={loading}
-              style={{ width: "100%", padding: "5px" }}
+              className="input-field"
             />
           </div>
 
@@ -128,7 +131,7 @@ export default function App() {
               onChange={e => setForm({ ...form, course: e.target.value })}
               required
               disabled={loading}
-              style={{ width: "100%", padding: "5px" }}
+              className="input-field"
             />
           </div>
 
@@ -136,7 +139,8 @@ export default function App() {
             <button
               type="submit"
               disabled={loading}
-              style={{ padding: "10px 20px", marginRight: "10px" }}
+              className="button-primary"
+              style={{ marginRight: "10px" }}
             >
               {loading ? "Saving..." : (editId ? "Update" : "Add")}
             </button>
@@ -149,7 +153,7 @@ export default function App() {
                   setError(null);
                 }}
                 disabled={loading}
-                style={{ padding: "10px 20px" }}
+                className="button-secondary"
               >
                 Cancel
               </button>
@@ -165,24 +169,25 @@ export default function App() {
           <div>Loading...</div>
         )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px" }}>
+        <div className="grid">
           {students.map(student => (
-            <div key={student.id} style={{ border: "1px solid #ccc", padding: "15px" }}>
+            <div key={student.id} className="card">
               <h3>{student.name}</h3>
               <p>Email: {student.email}</p>
               <p>Course: {student.course}</p>
-              <div style={{ marginTop: "10px" }}>
+              <div className="card-actions">
                 <button
                   onClick={() => editStudent(student)}
                   disabled={loading}
-                  style={{ marginRight: "10px", padding: "5px 10px" }}
+                  className="button-secondary"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => deleteStudent(student.id)}
                   disabled={loading}
-                  style={{ padding: "5px 10px" }}
+                  className="button-secondary"
+                  style={{ background: "#dc2626" }}
                 >
                   Delete
                 </button>
@@ -195,6 +200,10 @@ export default function App() {
           <div>No students found</div>
         )}
       </div>
+      </div>
+      <footer className="footer">
+        made by sanskar khandelwal 🔥
+      </footer>
     </div>
   );
 }
