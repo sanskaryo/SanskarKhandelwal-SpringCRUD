@@ -29,9 +29,10 @@ public class StudentService {
         return repo.save(s);
     }
 
-    public Student update(Integer id, Student data) {
+    public Optional<Student> update(Integer id, Student data) {
         data.setId(id);
-        return repo.save(data);
+        boolean updated = repo.update(data);
+        return updated ? Optional.of(data) : Optional.empty();
     }
 
     public void delete(Integer id) {

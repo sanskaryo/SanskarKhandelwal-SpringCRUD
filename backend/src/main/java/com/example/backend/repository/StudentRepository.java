@@ -45,6 +45,18 @@ public class StudentRepository {
         return student;
     }
 
+    public boolean update(Student student) {
+        String sql = "UPDATE students SET name = ?, email = ?, course = ? WHERE id = ?";
+        int rows = jdbcTemplate.update(
+            sql,
+            student.getName(),
+            student.getEmail(),
+            student.getCourse(),
+            student.getId()
+        );
+        return rows > 0;
+    }
+
     public void deleteById(Integer id) {
         String sql = "DELETE FROM students WHERE id = ?";
         jdbcTemplate.update(sql, id);

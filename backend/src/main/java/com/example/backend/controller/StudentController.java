@@ -46,12 +46,8 @@ public class StudentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> update(@PathVariable Integer id, @RequestBody Student s) {
-        try {
-            Student updated = service.update(id, s);
-            return ResponseEntity.ok(updated);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<Student> updated = service.update(id, s);
+        return updated.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
